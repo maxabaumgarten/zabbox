@@ -1,2 +1,4 @@
 requests
 pynetbox
+dotenv
+os
