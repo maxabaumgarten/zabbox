@@ -9,18 +9,37 @@ Automatically Sync Netbox and Zabbix
 - If the group does exist, the Platform listed in Netbox is matched against a Zabbix template.
 If the group and template exists, the device is added to Zabbix in that group with the template applied.
 
-## Netbox to Zabbix Mapping
+### Netbox to Zabbix Mapping
 
 - Netbox Device Name --> Zabbix Host Name
 - Netbox Device Primary IP --> Zabbix Interface IP
 - Netbox Device Site --> Zabbix Host Group
 - Netbox Device Platform --> Zabbix Template
 
-## Limitations
+### Environment Variables
 
-- Currently only works with SNMPv3 interfaces. (Grow up SNMPv2 users)
-- Groups must already exist in Zabbix.
-- Templates must already exist in Zabbix.
+- ZABBIX_URL <-- URL of Zabbix API
+- ZABBIX_USER= <-- Zabbix API Username
+- ZABBIX_PW= <-- Zabbix API Password
+- ZABBIX_SNMP_USR= <-- SNMP Username or Macro
+- ZABBIX_SNMP_PW= <-- SNMP Password or Macro
+- ZABBIX_AUTH_PRO= <-- SNMP Auth Protocol
+    - 0 - (default) - MD5
+    - 1 - SHA1
+    - 2 - SHA224
+    - 3 - SHA256
+    - 4 - SHA384
+    - 5 - SHA512
+- ZABBIX_PRIV_PRO <-- SNMP Privacy Protocol
+    - 0 - (default) - DES
+    - 1 - AES128
+    - 2 - AES192
+    - 3 - AES256
+    - 4 - AES192C
+    - 5 - AES256C
+- NETBOX_URL <-- URL of Netbox API
+- NETBOX_TOKEN <-- Netbox API Token
+
 
 ## Requirements
 
@@ -29,6 +48,13 @@ If the group and template exists, the device is added to Zabbix in that group wi
 ## Run
 
 ```python3 main.py```
+
+
+## Limitations
+
+- Currently only works with SNMPv3 interfaces. (Grow up SNMPv2 users)
+- Groups must already exist in Zabbix.
+- Templates must already exist in Zabbix.
 
 ## Future Enhancements
 
