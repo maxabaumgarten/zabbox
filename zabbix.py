@@ -115,7 +115,7 @@ class Zabbix:
         )
         return response.json()['result'][0]['templateid']
 
-    def zabbix_host_create(self, hostname, groupid, templateid, ip, usr, pwd):
+    def zabbix_host_create(self, hostname, groupid, templateid, ip, usr, pwd, auth, priv):
         """Create a zabbix host"""
         response = requests.post(self.zabbix_url, json={
             "jsonrpc": "2.0",
@@ -138,8 +138,8 @@ class Zabbix:
                             "securitylevel": 2,
                             "authprotocol": 1,
                             "privprotocol": 1,
-                            "authpassphrase": pwd,
-                            "privpassphrase": pwd
+                            "authpassphrase": auth,
+                            "privpassphrase": priv
                         }
                     }
                 ],
