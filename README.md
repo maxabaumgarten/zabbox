@@ -18,7 +18,7 @@ If the group and template exists, the device is added to Zabbix in that group wi
 
 ## Limitations
 
-- Currently only works with SNMpv3 interfaces. (Grow up SNMPv2 users)
+- Currently only works with SNMPv3 interfaces. (Grow up SNMPv2 users)
 - Groups must already exist in Zabbix.
 - Templates must already exist in Zabbix.
 
@@ -35,3 +35,4 @@ If the group and template exists, the device is added to Zabbix in that group wi
 - Multiple Interface Support (Agent, IMPI, etc.)
 - Multiple Zabbix Host Groups (Tenant, Site, etc.)
 - Multiple Zabbix Templates (Tag-based, etc.)
+- Dockerized Version with automatic querying of Netbox and Zabbix
