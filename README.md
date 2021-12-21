@@ -11,10 +11,10 @@ If the group and template exists, the device is added to Zabbix in that group wi
 
 ## Netbox to Zabbix Mapping
 
-- Netbox Device Name: Zabbix Host Name
-- Netbox Device Primary IP: Zabbix Interface IP
-- Netbox Device Site: Zabbix Host Group
-- Netbox Device Platform: Zabbix Template
+- Netbox Device Name --> Zabbix Host Name
+- Netbox Device Primary IP --> Zabbix Interface IP
+- Netbox Device Site --> Zabbix Host Group
+- Netbox Device Platform --> Zabbix Template
 
 ## Limitations
 
