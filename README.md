@@ -1,4 +1,4 @@
-![Zabbox Logo](https://github.com/maxabaumgarten/zabbox/blob/main/images/zabbox%20gh.png)
+![Zabbox Logo](https://github.com/maxabaumgarten/zabbox/blob/main/images/zabbox%20gh%20crop.png)
 
 # Zabbox
 Automatically Sync Netbox and Zabbix
