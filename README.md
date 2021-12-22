@@ -3,8 +3,8 @@
 # Zabbox
 Automatically Sync Netbox and Zabbix
 
-See: https://github.com/netbox-community/netbox
-See: https://zabbix.com
+- See: https://github.com/netbox-community/netbox
+- See: https://zabbix.com
 
 ## How it Works
 
