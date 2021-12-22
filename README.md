@@ -3,6 +3,9 @@
 # Zabbox
 Automatically Sync Netbox and Zabbix
 
+See: https://github.com/netbox-community/netbox
+See: https://zabbix.com
+
 ## How it Works
 
 - Netbox is queried for all devices and their IP addresses.
