@@ -41,10 +41,8 @@ for device in devices:
             ztemplate = zabbix.zabbix_template_name(device.platform.name)
             if str(ztemplate) == device.platform.name:
                 # create host in zabbix
-                ztempid = zabbix.zabbix_template_id(device.platform.name)
-                zgroupid = zabbix.zabbix_group_id(device.site.name)
                 zip = str(device.primary_ip).split('/',1)[0]
-                zabbix.zabbix_host_create(device.name, zip, zgroupid, ztempid, zsnmpusr, zsnmppw, zauthpro, zprivpro)
+                zabbix.zabbix_host_create(device.name, zip, zsnmpusr, zsnmppw, zauthpro, zprivpro)
                 print(f"Zabbix host created for device: {device.name}")
             else:
                 print(f"Sorry.  No template found for {device.name}.")
