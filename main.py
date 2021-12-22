@@ -17,35 +17,34 @@ zprivpro = os.getenv('ZABBIX_PRIV_PRO')
 nburl = os.getenv('NETBOX_URL')
 nbtoken = os.getenv('NETBOX_TOKEN')
 
-
+#initialize netbox
 nb = pynetbox.api(nburl, nbtoken)
-
+#initialize zabbix
 zabbix = Zabbix(zurl, zuser, zpass)
+zabbix.zabbix_token()
 
-token = zabbix.zabbix_token()
-print(token)
 
+# iterate through all devices in netbox
 devices = nb.dcim.devices.all()
 
 for device in devices:
-    #query zabbix for device
     zhost = zabbix.zabbix_host_info(device.name)
 
-    #check if group for device exist
+    #check if group for device exists
     if len(zhost) == 0:
         zgroup = zabbix.zabbix_group_name(device.site.name)
         if zgroup is None:
              print(f"Sorry.  No group found for {device.site.name}.")
         elif zgroup == device.site.name:
             print(f"Zabbix group, {zgroup}, found for Device: {device.name}")
-            ztemplate = zabbix.zabbix_template_name(str(device.platform))
-            if ztemplate is not None:
-                ztempid = zabbix.zabbix_template_id(str(device.platform))
-                print(ztempid)
+            # check if template for device platform exists
+            ztemplate = zabbix.zabbix_template_name(device.platform.name)
+            if str(ztemplate) == device.platform.name:
+                # create host in zabbix
+                ztempid = zabbix.zabbix_template_id(device.platform.name)
                 zgroupid = zabbix.zabbix_group_id(device.site.name)
-                print(zgroupid)
                 zip = str(device.primary_ip).split('/',1)[0]
-                zabbix.zabbix_host_create(str(device.name), zgroupid, ztempid, zip, zsnmpusr, zsnmppw, zauthpro, zprivpro)
+                zabbix.zabbix_host_create(device.name, zip, zgroupid, ztempid, zsnmpusr, zsnmppw, zauthpro, zprivpro)
                 print(f"Zabbix host created for device: {device.name}")
             else:
                 print(f"Sorry.  No template found for {device.name}.")

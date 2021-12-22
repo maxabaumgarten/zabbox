@@ -64,7 +64,7 @@ class Zabbix:
             return None
 
     def zabbix_group_id(self, groupname):
-        """Get the zabbix group info"""
+        """Get the zabbix group id"""
         response = requests.get(self.zabbix_url, json={
             "jsonrpc": "2.0",
             "method": "hostgroup.get",
@@ -99,7 +99,7 @@ class Zabbix:
         return response.json()['result'][0]['name']
 
     def zabbix_template_id(self, template):
-        """Get the zabbix template info"""
+        """Get the zabbix template id"""
         response = requests.get(self.zabbix_url, json={
             "jsonrpc": "2.0",
             "method": "template.get",
@@ -115,8 +115,8 @@ class Zabbix:
         )
         return response.json()['result'][0]['templateid']
 
-    def zabbix_host_create(self, hostname, groupid, templateid, ip, usr, pwd, auth, priv):
-        """Create a zabbix host"""
+    def zabbix_host_create(self, hostname, ip, group, template, usr, pwd, auth, priv):
+        """Create a zabbix snmpv3 host"""
         response = requests.post(self.zabbix_url, json={
             "jsonrpc": "2.0",
             "method": "host.create",
@@ -136,21 +136,21 @@ class Zabbix:
                             "securityname": usr,
                             "contextname": "",
                             "securitylevel": 2,
-                            "authprotocol": 1,
-                            "privprotocol": 1,
-                            "authpassphrase": auth,
-                            "privpassphrase": priv
+                            "authprotocol": auth,
+                            "privprotocol": priv,
+                            "authpassphrase": pwd,
+                            "privpassphrase": pwd
                         }
                     }
                 ],
                 "groups": [
                     {
-                        "groupid": groupid
+                        "groupid": group
                     }
                 ],
                 "templates": [
                     {
-                        "templateid": templateid
+                        "templateid": template
                     }
                 ]
             },
