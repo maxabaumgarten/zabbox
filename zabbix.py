@@ -59,11 +59,12 @@ class Zabbix:
         )
         # only return the matching group name in zabbix
         if response.json()['result']:
+            self.gid = response.json()['result'][0]['groupid']
             return response.json()['result'][0]['name']
         else:
             return None
 
-    def zabbix_group_id(self, groupname):
+    def zabbix_group_id(self):
         """Get the zabbix group id"""
         response = requests.get(self.zabbix_url, json={
             "jsonrpc": "2.0",
@@ -71,7 +72,7 @@ class Zabbix:
             "params": {
                 "output": "extend",
                 "filter": {
-                    "name": groupname
+                    "name": self.gname
                 }
             },
             "auth": self.zabbix_token(),
@@ -96,26 +97,27 @@ class Zabbix:
             "id": 1
             }
         )
+        self.tid = response.json()['result'][0]['templateid']
         return response.json()['result'][0]['name']
 
-    def zabbix_template_id(self, template):
-        """Get the zabbix template id"""
-        response = requests.get(self.zabbix_url, json={
-            "jsonrpc": "2.0",
-            "method": "template.get",
-            "params": {
-                "output": "extend",
-                "filter": {
-                    "host": template
-                }
-            },
-            "auth": self.zabbix_token(),
-            "id": 1
-            }
-        )
-        return response.json()['result'][0]['templateid']
+    # def zabbix_template_id(self, template):
+    #     """Get the zabbix template id"""
+    #     response = requests.get(self.zabbix_url, json={
+    #         "jsonrpc": "2.0",
+    #         "method": "template.get",
+    #         "params": {
+    #             "output": "extend",
+    #             "filter": {
+    #                 "host": template
+    #             }
+    #         },
+    #         "auth": self.zabbix_token(),
+    #         "id": 1
+    #         }
+    #     )
+    #     return response.json()['result'][0]['templateid']
 
-    def zabbix_host_create(self, hostname, ip, group, template, usr, pwd, auth, priv):
+    def zabbix_host_create(self, hostname, ip, usr, pwd, auth, priv):
         """Create a zabbix snmpv3 host"""
         response = requests.post(self.zabbix_url, json={
             "jsonrpc": "2.0",
@@ -145,12 +147,12 @@ class Zabbix:
                 ],
                 "groups": [
                     {
-                        "groupid": group
+                        "groupid": self.gid
                     }
                 ],
                 "templates": [
                     {
-                        "templateid": template
+                        "templateid": self.tid
                     }
                 ]
             },
